@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "strHomeTeam": "Liverpool",
+      "strAwayTeam": "Aston Villa",
+      "dateEvent": "2020-04-12",
+      "idHomeTeam": "133602",
+      "idAwayTeam": "133601"
+    },
+    {
+      "strHomeTeam": "Brighton",
+      "strAwayTeam": "Liverpool",
+      "dateEvent": "2020-04-20",
+      "idHomeTeam": "133619",
+      "idAwayTeam": "133602"
+    }
+  ]
+}
