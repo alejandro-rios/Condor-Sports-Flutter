@@ -26,6 +26,10 @@ dependencies:
   freezed_annotation: 0.7.1
   # Json Serializable
   json_serializable: 3.3.0
+  # SVG Loader
+  flutter_svg: ^0.17.4
+  # Speed Dial FB
+  flutter_speed_dial: 1.2.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -39,5 +43,9 @@ dev_dependencies:
   freezed: 0.10.4
 
 flutter:
+  assets:
+    - images/ic_la_liga.png
+    - images/ic_english.png
+    - images/ic_russian_league.png
 
   uses-material-design: true
