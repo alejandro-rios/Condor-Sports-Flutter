@@ -29,25 +29,28 @@ class _TeamGridWidgetState extends State<TeamGridWidget> {
     return Card(
       elevation: 4.0,
       child: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              child: Center(
-                child: Image.network(
-                  team.strTeamBadge,
-                  height:  100,
+        child: GestureDetector(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                child: Center(
+                  child: Image.network(
+                    team.strTeamBadge,
+                    height: 100,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ListTile(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
 //      title: widget.teams[index].strTeamBadge == null ? Image.asset(Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL) : Image.network(widget.teams[index].strTeamBadge),
-                title: Text(team.strTeam),
-                subtitle: Text(team.strStadium),
+                  title: Text(team.strTeam),
+                  subtitle: Text(team.strStadium),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          onTap: () => print("Click on "+team.strTeam),
         ),
       ),
     );

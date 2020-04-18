@@ -4,7 +4,6 @@ import 'package:condor_sports_flutter/features/teams_db/presentation/widgets/loa
 import 'package:condor_sports_flutter/features/teams_db/presentation/widgets/message_display.dart';
 import 'package:condor_sports_flutter/features/teams_db/presentation/widgets/speed_dial_fab.dart';
 import 'package:condor_sports_flutter/features/teams_db/presentation/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,26 +16,30 @@ class TeamListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final teamsBloc = sl<TeamsDbBloc>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Condor Sports'),
       ),
       body: Center(
-        child: buildBody(context),
+        child: buildBody(context, teamsBloc),
       ),
-      floatingActionButton: SpeedDialFab(),
+      floatingActionButton: SpeedDialFab(teamListBloc: teamsBloc),
     );
   }
 
-  BlocProvider<TeamsDbBloc> buildBody(BuildContext context) {
+  BlocProvider<TeamsDbBloc> buildBody(
+    BuildContext context,
+    TeamsDbBloc teamsBloc,
+  ) {
     return BlocProvider(
-      create: (_) => sl<TeamsDbBloc>(),
+      create: (_) => teamsBloc,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child:
-              // Top half
-              BlocBuilder<TeamsDbBloc, TeamsDbState>(
+          child: BlocBuilder<TeamsDbBloc, TeamsDbState>(
             // ignore: missing_return
             builder: (context, state) {
               if (state is Empty) {

@@ -2,29 +2,20 @@ import 'package:condor_sports_flutter/core/util/constants.dart';
 import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import '../../../../injection_container.dart';
-
 class SpeedDialFab extends StatefulWidget {
-  final Function() onClick;
-  final String toolTip;
-  final IconData icon;
+  final TeamsDbBloc teamListBloc;
 
-  SpeedDialFab({this.onClick, this.toolTip, this.icon});
+  SpeedDialFab({@required this.teamListBloc});
 
   @override
-  _SpeedDialFabState createState() => _SpeedDialFabState();
+  _SpeedDialFabState createState() => _SpeedDialFabState(teamListBloc);
 }
 
 class _SpeedDialFabState extends State<SpeedDialFab> {
-  TeamsDbBloc _teamsDbBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _teamsDbBloc = sl<TeamsDbBloc>();
-  }
+  _SpeedDialFabState(Bloc<TeamsDbEvent, TeamsDbState> teamListBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +30,6 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
       curve: Curves.bounceIn,
       overlayColor: Colors.black,
       overlayOpacity: 0.5,
-      onOpen: () => print('OPENING DIAL'),
-      onClose: () => print('DIAL CLOSED'),
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-hero-tag',
       backgroundColor: Color(0xFF393536),
@@ -59,7 +48,7 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
             backgroundColor: Color(0xFFFDCD07),
             label: 'Russian Premier League',
             labelStyle: TextStyle(fontSize: 14.0),
-            onTap: () => _teamsDbBloc
+            onTap: () => widget.teamListBloc
                 .add(GetTeamsByLeagueEvent(Constants.RUSSIAN_LEAGUE_ID))),
         SpeedDialChild(
           labelBackgroundColor: Color(0xFFFDCD07),
@@ -67,7 +56,7 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
           backgroundColor: Color(0xFFFDCD07),
           label: 'English League',
           labelStyle: TextStyle(fontSize: 14.0),
-          onTap: () => _teamsDbBloc
+          onTap: () => widget.teamListBloc
               .add(GetTeamsByLeagueEvent(Constants.ENGLISH_LEAGUE_ID)),
         ),
         SpeedDialChild(
@@ -76,7 +65,7 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
           backgroundColor: Color(0xFFFDCD07),
           label: 'La Liga',
           labelStyle: TextStyle(fontSize: 14.0),
-          onTap: () => _teamsDbBloc
+          onTap: () => widget.teamListBloc
               .add(GetTeamsByLeagueEvent(Constants.SPANISH_LEAGUE_ID)),
         ),
       ],
