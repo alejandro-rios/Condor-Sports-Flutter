@@ -5,18 +5,21 @@ import 'package:condor_sports_flutter/features/teams_db/data/repositories/teams_
 import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_team_events_interactor.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_teams_by_league_interactor.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/repositories/teams_repository.dart';
-import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/bloc.dart';
+import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/team_list/bloc.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'features/teams_db/presentation/bloc/team_details/team_details_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // Features - Condor Sports
   // Bloc
-  sl.registerFactory(() => TeamsDbBloc(teamsByLeague: sl(), teamEvents: sl()));
+  sl.registerFactory(() => TeamsListBloc(teamsByLeague: sl()));
+  sl.registerFactory(() => TeamDetailsBloc(teamEvents: sl()));
 
   // Interactors
   sl.registerLazySingleton(() => GetTeamsByLeagueInteractor(sl()));

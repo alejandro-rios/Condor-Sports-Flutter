@@ -21,7 +21,7 @@ dependencies:
   data_connection_checker: ^0.3.4
   http: ^0.12.0+4
   # Local cache
-  shared_preferences: ^0.5.6+3
+  shared_preferences: ^0.5.7
   # Data class representation
   freezed_annotation: 0.7.1
   # Json Serializable
@@ -30,6 +30,8 @@ dependencies:
   flutter_svg: ^0.17.4
   # Speed Dial FB
   flutter_speed_dial: 1.2.5
+  # Internaziola
+  intl: 0.16.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,11 +43,19 @@ dev_dependencies:
   mockito: ^4.1.1
   build_runner:
   freezed: 0.10.4
+  flutter_launcher_icons: 0.7.4
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: "launcher_icon"
+  image_path: "images/ball.png"
+  adaptive_icon_background: "images/logo_background.png"
 
 flutter:
   assets:
     - images/ic_la_liga.png
     - images/ic_english.png
     - images/ic_russian_league.png
+    - images/ball.png
 
   uses-material-design: true

@@ -1,4 +1,5 @@
 import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team.dart';
+import 'package:condor_sports_flutter/features/teams_db/presentation/pages/team_details_page.dart';
 import 'package:flutter/material.dart';
 
 class TeamGridWidget extends StatefulWidget {
@@ -50,7 +51,7 @@ class _TeamGridWidgetState extends State<TeamGridWidget> {
               ),
             ],
           ),
-          onTap: () => print("Click on "+team.strTeam),
+          onTap: () => Navigator.pushNamed(context, TeamDetailsPage.route, arguments: team),
         ),
       ),
     );

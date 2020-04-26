@@ -110,11 +110,11 @@ void main() {
             .thenAnswer((_) async => tTeamsList);
 
         // When
-        final result = await repository.getTeamsByLeague(tLeagueId);
+        await repository.getTeamsByLeague(tLeagueId);
 
         // Then
         verify(mockRemoteDataSource.getTeamsByLeague(tLeagueId));
-        // missing call here
+        verify(mockLocalDataSource.saveTeams(tTeamsList));
       });
 
       test(
@@ -129,7 +129,7 @@ void main() {
 
         // Then
         verify(mockRemoteDataSource.getTeamsByLeague(tLeagueId));
-        //verifyZeroInteractions(mockLocalDataSource);
+        verifyZeroInteractions(mockLocalDataSource);
         expect(result, equals(Left(ServerFailure())));
       });
     });
@@ -139,23 +139,30 @@ void main() {
           'given LocalDataSource when data is present then should return team list',
           () async {
         // Given
-//        when(mockLocalDataSource.getTeamById(any)).thenAnswer((_) async => tTeamsList);
+        when(mockLocalDataSource.getTeams()).thenAnswer((_) async => tTeamsList);
         // When
+        final result = await repository.getTeamsByLeague(tLeagueId);
 
         // Then
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(mockLocalDataSource.getTeams());
+        expect(result, equals(Right(tTeamsList)));
       });
 
       test(
           'given LocalDataSource when data is not present then should return NoLocalDataFailure',
           () async {
         // Given
-        when(mockLocalDataSource.getTeamById(any))
+        when(mockLocalDataSource.getTeams())
             .thenThrow(NoLocalDataException());
 
         // When
-//            final result = await repository.
+        final result = await repository.getTeamsByLeague(tLeagueId);
 
         // Then
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(mockLocalDataSource.getTeams());
+        expect(result, equals(Left(NoLocalDataFailure())));
       });
     });
   });
@@ -248,7 +255,7 @@ void main() {
           'given LocalDataSource when data is not present then should return NoLocalDataFailure',
               () async {
             // Given
-            when(mockLocalDataSource.getTeamById(any))
+            when(mockLocalDataSource.getTeams())
                 .thenThrow(NoLocalDataException());
 
             // When

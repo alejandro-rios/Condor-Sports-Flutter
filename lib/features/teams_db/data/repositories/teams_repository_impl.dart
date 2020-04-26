@@ -25,7 +25,7 @@ class TeamsRepositoryImpl implements TeamsRepository {
     if (await networkInfo.isConnected) {
       try {
         final teamsByLeague = await remoteDataSource.getTeamsByLeague(leagueId);
-//        localDataSource.cacheNumberTrivia(remoteTrivia);
+        localDataSource.saveTeams(teamsByLeague);
 
         return Right(teamsByLeague);
       } on ServerException {

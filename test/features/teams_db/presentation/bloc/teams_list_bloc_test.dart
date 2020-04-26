@@ -3,7 +3,7 @@ import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team
 import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team_events.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_team_events_interactor.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_teams_by_league_interactor.dart';
-import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/bloc.dart';
+import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/team_list/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -11,21 +11,15 @@ import 'package:mockito/mockito.dart';
 class MockGetTeamsByLeagueInteractor extends Mock
     implements GetTeamsByLeagueInteractor {}
 
-class MockGetTeamEventsInteractor extends Mock
-    implements GetTeamEventsInteractor {}
-
 void main() {
-  TeamsDbBloc bloc;
+  TeamsListBloc bloc;
   MockGetTeamsByLeagueInteractor mockGetTeamsByLeagueInteractor;
-  MockGetTeamEventsInteractor mockGetTeamEventsInteractor;
 
   setUp(() {
     mockGetTeamsByLeagueInteractor = MockGetTeamsByLeagueInteractor();
-    mockGetTeamEventsInteractor = MockGetTeamEventsInteractor();
 
-    bloc = TeamsDbBloc(
+    bloc = TeamsListBloc(
       teamsByLeague: mockGetTeamsByLeagueInteractor,
-      teamEvents: mockGetTeamEventsInteractor,
     );
   });
 
@@ -115,82 +109,6 @@ void main() {
 
       // When
       bloc.add(GetTeamsByLeagueEvent(tLeagueId));
-    });
-  });
-
-  group('GetTeamEventsInteractor', () {
-    final tTeamId = '21';
-    final List<APITeamEvents> tEventList = [
-      APITeamEvents(
-        strHomeTeam: "Brighton",
-        strAwayTeam: "Liverpool",
-        dateEvent: "2020-04-20",
-        idHomeTeam: "133619",
-        idAwayTeam: "133602",
-      )
-    ];
-
-    test('should get data from the concrete use case', () async {
-      // Given
-      when(mockGetTeamEventsInteractor(any))
-          .thenAnswer((_) async => Right(tEventList));
-
-      // When
-      bloc.add(GetTeamEventsEvent(tTeamId));
-      await untilCalled(mockGetTeamEventsInteractor(any));
-
-      // Then
-      verify(mockGetTeamEventsInteractor(TeamParams(teamId: tTeamId)));
-    });
-
-    test('should emit [Loading, Loaded] when data is gotten successfully',
-        () async {
-//      // Given
-//      when(mockGetTeamEventsInteractor(any))
-//          .thenAnswer((_) async => Right(tEventList));
-//
-//      // Then later
-//      final expected = [Empty(), Loading(), Loaded(teams: tTeamId)];
-//      expectLater(bloc, emitsInOrder(expected));
-//
-//      // When
-//      bloc.add(GetTeamEventsEvent(tTeamId));
-    });
-
-    test('should emit [Loading, Error] when getting data fails', () async {
-      // Given
-      when(mockGetTeamEventsInteractor(any))
-          .thenAnswer((_) async => Left(ServerFailure()));
-
-      // Then later
-      final expected = [
-        Empty(),
-        Loading(),
-        Error(message: SERVER_FAILURE_MESSAGE)
-      ];
-      expectLater(bloc, emitsInOrder(expected));
-
-      // When
-      bloc.add(GetTeamEventsEvent(tTeamId));
-    });
-
-    test(
-        'should emit [Loading, Error] when a proper message for the error when getting data fails',
-        () async {
-      // Given
-      when(mockGetTeamEventsInteractor(any))
-          .thenAnswer((_) async => Left(NoLocalDataFailure()));
-
-      // Then later
-      final expected = [
-        Empty(),
-        Loading(),
-        Error(message: LOCAL_STORAGE_FAILURE_MESSAGE)
-      ];
-      expectLater(bloc, emitsInOrder(expected));
-
-      // When
-      bloc.add(GetTeamEventsEvent(tTeamId));
     });
   });
 }

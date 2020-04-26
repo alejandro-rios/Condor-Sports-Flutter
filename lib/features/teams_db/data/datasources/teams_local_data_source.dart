@@ -10,9 +10,9 @@ abstract class TeamsLocalDataSource {
   /// the user had an internet connection.
   ///
   /// Throws [NoLocalDataException] if no cached data is present.
-  Future<APITeam> getTeamById(String teamId);
+  Future<List<APITeam>> getTeams();
 
-  Future<void> saveTeams(APITeam teams);
+  Future<void> saveTeams(List<APITeam> teams);
 }
 
 const CACHED_TEAMS = 'CACHED_TEAMS';
@@ -23,21 +23,25 @@ class TeamsLocalDataSourceImpl implements TeamsLocalDataSource {
   TeamsLocalDataSourceImpl({@required this.sharedPreferences});
 
   @override
-  Future<APITeam> getTeamById(String teamId) {
+  Future<List<APITeam>> getTeams() {
     final jsonString = sharedPreferences.get(CACHED_TEAMS);
 
     if (jsonString != null) {
-      return Future.value(APITeam.fromJson(json.decode(jsonString)));
+      return Future.value(json
+          .decode(jsonString)
+          .cast<Map<String, dynamic>>()
+          .map<APITeam>((json) => APITeam.fromJson(json))
+          .toList());
     } else {
       throw NoLocalDataException();
     }
   }
 
   @override
-  Future<void> saveTeams(APITeam teams) {
+  Future<void> saveTeams(List<APITeam> teams) {
     return sharedPreferences.setString(
       CACHED_TEAMS,
-      json.encode(teams.toJson()),
+      json.encode(teams),
     );
   }
 }

@@ -1,12 +1,12 @@
 import 'package:condor_sports_flutter/core/util/constants.dart';
-import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/bloc.dart';
+import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/team_list/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class SpeedDialFab extends StatefulWidget {
-  final TeamsDbBloc teamListBloc;
+  final TeamsListBloc teamListBloc;
 
   SpeedDialFab({@required this.teamListBloc});
 
@@ -15,7 +15,7 @@ class SpeedDialFab extends StatefulWidget {
 }
 
 class _SpeedDialFabState extends State<SpeedDialFab> {
-  _SpeedDialFabState(Bloc<TeamsDbEvent, TeamsDbState> teamListBloc);
+  _SpeedDialFabState(Bloc<TeamsListEvent, TeamsListState> teamListBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +48,14 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
             backgroundColor: Color(0xFFFDCD07),
             label: 'Russian Premier League',
             labelStyle: TextStyle(fontSize: 14.0),
-            onTap: () => widget.teamListBloc
-                .add(GetTeamsByLeagueEvent(Constants.RUSSIAN_LEAGUE_ID))),
+            onTap: () => _dispatchGetTeams(Constants.RUSSIAN_LEAGUE_ID)),
         SpeedDialChild(
           labelBackgroundColor: Color(0xFFFDCD07),
           child: new Image.asset('images/ic_english.png'),
           backgroundColor: Color(0xFFFDCD07),
           label: 'English League',
           labelStyle: TextStyle(fontSize: 14.0),
-          onTap: () => widget.teamListBloc
-              .add(GetTeamsByLeagueEvent(Constants.ENGLISH_LEAGUE_ID)),
+          onTap: () => _dispatchGetTeams(Constants.ENGLISH_LEAGUE_ID),
         ),
         SpeedDialChild(
           labelBackgroundColor: Color(0xFFFDCD07),
@@ -65,10 +63,13 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
           backgroundColor: Color(0xFFFDCD07),
           label: 'La Liga',
           labelStyle: TextStyle(fontSize: 14.0),
-          onTap: () => widget.teamListBloc
-              .add(GetTeamsByLeagueEvent(Constants.SPANISH_LEAGUE_ID)),
+          onTap: () => _dispatchGetTeams(Constants.SPANISH_LEAGUE_ID),
         ),
       ],
     );
+  }
+
+  void _dispatchGetTeams(String leagueId) {
+    widget.teamListBloc.add(GetTeamsByLeagueEvent(leagueId));
   }
 }

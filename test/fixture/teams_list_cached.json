@@ -1,0 +1,32 @@
+[
+  {
+    "idTeam": "133604",
+    "strTeam": "Arsenal",
+    "strAlternate": "Gunners",
+    "intFormedYear": "1892",
+    "strStadium": "Emirates Stadium",
+    "strWebsite": "www.arsenal.com",
+    "strFacebook": "www.facebook.com/Arsenal",
+    "strTwitter": "twitter.com/arsenal",
+    "strInstagram": "instagram.com/arsenal",
+    "strDescriptionEN": "some thing in english",
+    "strTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "strTeamJersey": "https://www.thesportsdb.com/images/media/team/jersey/2019-133604-Jersey.png",
+    "strYoutube": "www.youtube.com/user/ArsenalTour"
+  },
+  {
+    "idTeam": "133601",
+    "strTeam": "Aston Villa",
+    "strAlternate": "Aston Villa FC",
+    "intFormedYear": "1874",
+    "strStadium": "Villa Park",
+    "strWebsite": "www.avfc.co.uk",
+    "strFacebook": "www.facebook.com/avfcofficial",
+    "strTwitter": "twitter.com/avfcofficial",
+    "strInstagram": "instagram.com/avfcofficial",
+    "strDescriptionEN": "some thing in english",
+    "strTeamBadge": "https://www.thesportsdb.com/images/media/team/badge/aofmzk1565427581.png",
+    "strTeamJersey": "https://www.thesportsdb.com/images/media/team/jersey/2019-133601-Jersey.png",
+    "strYoutube": "www.youtube.com/user/avfcofficial"
+  }
+]
