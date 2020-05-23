@@ -54,12 +54,16 @@ class TeamsRemoteDataSourceImpl implements TeamsRemoteDataSource {
     });
 
     if (response.statusCode == 200) {
-      final parsed =
-          json.decode(response.body)['events'].cast<Map<String, dynamic>>();
+      try {
+        final parsed =
+        json.decode(response.body)['events'].cast<Map<String, dynamic>>();
 
-      return parsed
-          .map<APITeamEvents>((json) => APITeamEvents.fromJson(json))
-          .toList();
+        return parsed
+            .map<APITeamEvents>((json) => APITeamEvents.fromJson(json))
+            .toList();
+      } catch(Exception){
+        throw ServerException();
+      }
     } else {
       throw ServerException();
     }

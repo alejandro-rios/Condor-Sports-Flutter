@@ -140,6 +140,7 @@ void main() {
           () async {
         // Given
         when(mockLocalDataSource.getTeams()).thenAnswer((_) async => tTeamsList);
+
         // When
         final result = await repository.getTeamsByLeague(tLeagueId);
 
@@ -235,34 +236,34 @@ void main() {
 
             // Then
             verify(mockRemoteDataSource.getTeamEvents(tTeamId));
-            //verifyZeroInteractions(mockLocalDataSource);
+            verifyZeroInteractions(mockLocalDataSource);
             expect(result, equals(Left(ServerFailure())));
           });
     });
 
-    runTestsOffline(() {
-      test(
-          'given LocalDataSource when data is present then should return team list',
-              () async {
-            // Given
-//        when(mockLocalDataSource.getTeamById(any)).thenAnswer((_) async => tTeamsList);
-            // When
-
-            // Then
-          });
-
-      test(
-          'given LocalDataSource when data is not present then should return NoLocalDataFailure',
-              () async {
-            // Given
-            when(mockLocalDataSource.getTeams())
-                .thenThrow(NoLocalDataException());
-
-            // When
-//            final result = await repository.
-
-            // Then
-          });
-    });
+//    runTestsOffline(() {
+//      test(
+//          'given LocalDataSource when data is present then should return team list',
+//              () async {
+//            // Given
+////        when(mockLocalDataSource.getTeamById(any)).thenAnswer((_) async => tTeamsList);
+//            // When
+//
+//            // Then
+//          });
+//
+//      test(
+//          'given LocalDataSource when data is not present then should return NoLocalDataFailure',
+//              () async {
+//            // Given
+//            when(mockLocalDataSource.getTeams())
+//                .thenThrow(NoLocalDataException());
+//
+//            // When
+////            final result = await repository.
+//
+//            // Then
+//          });
+//    });
   });
 }

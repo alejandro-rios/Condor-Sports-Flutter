@@ -1,13 +1,16 @@
+import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team_events.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TeamEventsWidget extends StatefulWidget {
   final List<APITeamEvents> events;
+  final List<APITeam> teams;
   final String homeTeamBadgeUrl;
 
   const TeamEventsWidget({
     @required this.events,
+    @required this.teams,
     @required this.homeTeamBadgeUrl,
   });
 
@@ -18,18 +21,26 @@ class TeamEventsWidget extends StatefulWidget {
 class _TeamEventsWidgetState extends State<TeamEventsWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: widget.events.length,
-        itemBuilder: (context, index) {
-          return _eventItem(
-              context, widget.events[index], widget.homeTeamBadgeUrl);
-        });
+    return Container(
+      height: 700,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.events.length,
+          itemBuilder: (context, index) {
+            return _eventItem(context, widget.events[index], widget.teams,
+                widget.homeTeamBadgeUrl);
+          }),
+    );
   }
 
-  Card _eventItem(
-      BuildContext context, APITeamEvents event, String homeTeamBadgeUrl) {
+  Card _eventItem(BuildContext context, APITeamEvents event,
+      List<APITeam> teams, String homeTeamBadgeUrl) {
     final String formattedDate =
         DateFormat("dd MMMM yyyy").format(DateTime.parse(event.dateEvent));
+    final String awayTeamBadgeUrl =
+        teams.firstWhere((i) => i.idTeam == event.idAwayTeam).strTeamBadge;
+    final String homeTeamBadgeUrl =
+        teams.firstWhere((i) => i.idTeam == event.idHomeTeam).strTeamBadge;
 
     return Card(
       elevation: 4.0,
@@ -87,7 +98,7 @@ class _TeamEventsWidgetState extends State<TeamEventsWidget> {
                 child: Container(
                   child: Center(
                     child: Image.network(
-                      homeTeamBadgeUrl,
+                      awayTeamBadgeUrl,
                       height: 80,
                     ),
                   ),

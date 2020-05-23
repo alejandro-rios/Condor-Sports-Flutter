@@ -39,19 +39,14 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
       children: [
         SpeedDialChild(
             labelBackgroundColor: Color(0xFFFDCD07),
-            child: SizedBox(
-                height: 28.0,
-                width: 28.0,
-                child: Image.asset(
-                  'images/ic_russian_league.png',
-                )),
+            child: Image.asset('images/ic_russian_league.png', scale: 3),
             backgroundColor: Color(0xFFFDCD07),
             label: 'Russian Premier League',
             labelStyle: TextStyle(fontSize: 14.0),
             onTap: () => _dispatchGetTeams(Constants.RUSSIAN_LEAGUE_ID)),
         SpeedDialChild(
           labelBackgroundColor: Color(0xFFFDCD07),
-          child: new Image.asset('images/ic_english.png'),
+          child: Image.asset('images/ic_english.png', scale: 3),
           backgroundColor: Color(0xFFFDCD07),
           label: 'English League',
           labelStyle: TextStyle(fontSize: 14.0),
@@ -59,7 +54,7 @@ class _SpeedDialFabState extends State<SpeedDialFab> {
         ),
         SpeedDialChild(
           labelBackgroundColor: Color(0xFFFDCD07),
-          child: new Image.asset('images/ic_la_liga.png'),
+          child: Image.asset('images/ic_la_liga.png', scale: 3),
           backgroundColor: Color(0xFFFDCD07),
           label: 'La Liga',
           labelStyle: TextStyle(fontSize: 14.0),

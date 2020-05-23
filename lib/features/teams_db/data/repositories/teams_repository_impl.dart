@@ -31,6 +31,14 @@ class TeamsRepositoryImpl implements TeamsRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
+    } else {
+      try {
+        final teams = await localDataSource.getTeams();
+
+        return Right(teams);
+      } on NoLocalDataException {
+        return Left(NoLocalDataFailure());
+      }
     }
   }
 
@@ -45,6 +53,17 @@ class TeamsRepositoryImpl implements TeamsRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<APITeam>>> getTeamsFromDB() async {
+    try {
+      final teams = await localDataSource.getTeams();
+
+      return Right(teams);
+    } on NoLocalDataException {
+      return Left(NoLocalDataFailure());
     }
   }
 }

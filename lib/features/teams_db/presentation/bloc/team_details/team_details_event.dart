@@ -12,3 +12,11 @@ class GetEventsByTeamEvent extends TeamDetailsEvent {
   @override
   List get props => [teamId];
 }
+
+class GetTeamsFromDB extends TeamDetailsEvent {
+
+  GetTeamsFromDB();
+
+  @override
+  List get props => [];
+}

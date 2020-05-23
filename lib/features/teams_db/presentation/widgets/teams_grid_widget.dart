@@ -19,6 +19,7 @@ class _TeamGridWidgetState extends State<TeamGridWidget> {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      childAspectRatio: 1 / 1.5,
       crossAxisCount: widget.crossAxis,
       children: List.generate(widget.teams.length, (index) {
         return _teamItem(context, widget.teams[index]);
@@ -29,30 +30,39 @@ class _TeamGridWidgetState extends State<TeamGridWidget> {
   Card _teamItem(BuildContext context, APITeam team) {
     return Card(
       elevation: 4.0,
-      child: Container(
-        child: GestureDetector(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                child: Center(
-                  child: Image.network(
-                    team.strTeamBadge,
-                    height: 100,
+      child: GestureDetector(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4.0, 8.0, 4.0, 0.0),
+                  child: Container(
+                    child: Center(
+                      child: FadeInImage.assetNetwork(
+                          placeholder: 'images/ic_soccer_ball.svg',
+                          image: team.strTeamBadge,
+                        height: 100,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-//      title: widget.teams[index].strTeamBadge == null ? Image.asset(Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL) : Image.network(widget.teams[index].strTeamBadge),
-                  title: Text(team.strTeam),
-                  subtitle: Text(team.strStadium),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ListTile(
+                      title: Text(team.strTeam, style: TextStyle(fontSize: 15.0),),
+                      subtitle: Text(team.strStadium, maxLines: 1, overflow: TextOverflow.fade, style: TextStyle(fontSize: 12.0),),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          onTap: () => Navigator.pushNamed(context, TeamDetailsPage.route, arguments: team),
+              ],
+            ),
+          ],
         ),
+        onTap: () => Navigator.pushNamed(context, TeamDetailsPage.route,
+            arguments: team),
       ),
     );
   }

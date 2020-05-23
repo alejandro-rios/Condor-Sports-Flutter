@@ -1,7 +1,5 @@
 import 'package:condor_sports_flutter/core/error/failure.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team.dart';
-import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team_events.dart';
-import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_team_events_interactor.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/interactors/get_teams_by_league_interactor.dart';
 import 'package:condor_sports_flutter/features/teams_db/presentation/bloc/team_list/bloc.dart';
 import 'package:dartz/dartz.dart';

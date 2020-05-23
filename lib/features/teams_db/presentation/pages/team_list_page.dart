@@ -22,7 +22,8 @@ class TeamListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Condor Sports'),
+        title: Text('Condor Sports',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+        centerTitle: false,
       ),
       body: Center(
         child: buildBody(context, teamsListBloc),
@@ -58,6 +59,8 @@ class TeamListPage extends StatelessWidget {
                 );
               } else if (state is Error) {
                 return MessageDisplay(message: state.message);
+              } else {
+                return Container();
               }
             },
           ),

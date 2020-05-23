@@ -1,3 +1,4 @@
+import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team.dart';
 import 'package:condor_sports_flutter/features/teams_db/domain/entities/api_team_events.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -23,6 +24,15 @@ class LoadedDetails extends TeamDetailsState {
 
   @override
   List get props => [events];
+}
+
+class LoadedTeams extends TeamDetailsState {
+  final List<APITeam> teams;
+
+  LoadedTeams({@required this.teams});
+
+  @override
+  List get props => [teams];
 }
 
 class ErrorDetails extends TeamDetailsState {
